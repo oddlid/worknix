@@ -88,14 +88,18 @@
                   inherit hostname;
                 })
                 ./hosts/orbnix/programs.nix
+                nixvim.homeModules.nixvim
                 home-manager.nixosModules.home-manager
                 {
                   home-manager = {
                     backupFileExtension = "bak";
                     useGlobalPkgs = true;
                     useUserPackages = true;
-                    # extraSpecialArgs = { inherit inputs; };
-                    users.${primaryUser}.imports = [ (import ./hosts/orbnix/hm.nix { inherit primaryUser; }) ];
+                    extraSpecialArgs = {
+                      inherit inputs;
+                      inherit primaryUser;
+                    };
+                    users.${primaryUser}.imports = [ ./hosts/orbnix/hm.nix ];
                   };
                 }
               ];

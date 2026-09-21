@@ -1,4 +1,7 @@
-{ primaryUser, ... }:
+# {
+#   primaryUser ? "oddee",
+#   ...
+# }:
 { pkgs, ... }:
 let
   swe = "sv_SE.UTF-8";
@@ -43,7 +46,7 @@ in
       _ts = "date -Iseconds | cut -d + -f1 | sed 's/T/_/;s/://g'";
     };
 
-    username = primaryUser;
+    # username = primaryUser;
   };
 
   programs = {
@@ -279,17 +282,21 @@ in
       enableGitIntegration = true;
     };
 
-    neovim = {
-      defaultEditor = true;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      # I might like to change these, so specified as a reminder
-      withNodeJs = true;
-      withPerl = true;
-      withPython3 = true;
-      withRuby = false;
-      waylandSupport = false;
+    # neovim = {
+    #   defaultEditor = true;
+    #   viAlias = true;
+    #   vimAlias = true;
+    #   vimdiffAlias = true;
+    #   # I might like to change these, so specified as a reminder
+    #   withNodeJs = true;
+    #   withPerl = true;
+    #   withPython3 = true;
+    #   withRuby = false;
+    #   waylandSupport = false;
+    # };
+
+    nixvim = {
+      imports = [ ./nixvim.nix ];
     };
 
     nix-your-shell = {
