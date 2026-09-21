@@ -33,19 +33,34 @@
       . /opt/orbstack-guest/etc/profile-late
     '';
 
+    # Most of these, i.e. LSPs, should preferably be added to a project flake,
+    # but since I don't yet know how things will look, I'm adding it globally.
     systemPackages = with pkgs; [
       alejandra
       bash-language-server
       coreutils-full
       curl
       devenv
+      djlint
       docker-compose-language-service
       dockerfile-language-server
       duf
       dumbpipe
       dust
+      gci
       ghostscript
       git
+      go-minimock
+      go-mockery
+      go_1_26
+      gofumpt
+      golangci-lint
+      golangci-lint-langserver
+      golines
+      gomarkdoc
+      gopls
+      gosec
+      gotools
       helm-ls
       imagemagick
       lua-language-server
@@ -61,7 +76,6 @@
       nixfmt
       nixpkgs-fmt
       nmap
-      # nodejs_24 # Common for a lot of nvim stuff, so might just always have it
       perlnavigator
       prettier
       pyright
@@ -77,6 +91,7 @@
       stylua
       taplo
       tree-sitter
+      vimPlugins.neotest-golang
       vscode-json-languageserver
       vscode-langservers-extracted
       vtsls
