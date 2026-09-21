@@ -61,6 +61,10 @@
         }
       );
 
+      # Bootstrap a config with something like this.
+      # --impure is needed to include a file outside the repo, like for orbstacks configuration.nix
+      # sudo nixos-rebuild switch --impure --accept-flake-config --flake .#orbnix
+
       nixosConfigurations =
         let
           primaryUser = "oddee";
