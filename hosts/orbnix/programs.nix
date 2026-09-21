@@ -17,6 +17,12 @@
       # flake = ""; # TODO: set when path decided
     };
 
+    ssh = {
+      extraConfig = ''
+        Include /opt/orbstack-guest/etc/ssh_config
+      '';
+    };
+
     zsh = {
       enable = true;
     };

@@ -1,4 +1,5 @@
-{ pkgs, lib, ... }:
+{ primaryUser, ... }:
+{ pkgs, ... }:
 let
   swe = "sv_SE.UTF-8";
 in
@@ -42,6 +43,7 @@ in
       _ts = "date -Iseconds | cut -d + -f1 | sed 's/T/_/;s/://g'";
     };
 
+    username = primaryUser;
   };
 
   programs = {

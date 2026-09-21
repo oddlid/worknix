@@ -52,6 +52,7 @@
         {
           default = pkgs.mkShell {
             nativeBuildInputs = with pkgs; [
+              git
               nil # lsp language server for nix
               nix-output-monitor
               nixpkgs-fmt
@@ -61,9 +62,9 @@
         }
       );
 
-      # Bootstrap a config with something like this.
-      # --impure is needed to include a file outside the repo, like for orbstacks configuration.nix
-      # sudo nixos-rebuild switch --impure --accept-flake-config --flake .#orbnix
+      # Bootstrap a config with something like the following:
+      # nix-shell -p git # since git is not included in the default nix config in orbstack
+      # sudo nixos-rebuild switch --accept-flake-config --flake .#orbnix
 
       nixosConfigurations =
         let
@@ -75,17 +76,16 @@
           orbnix =
             let
               sys = "aarch64-linux";
+              hostname = "orbnix";
             in
             nixpkgs.lib.nixosSystem {
               system = sys;
               specialArgs = inputs;
               modules = [
-                # Orbstack has some default config, which is all included via this file
-                /etc/nixos/configuration.nix
-
                 (import ./hosts/orbnix/system.nix {
                   inherit primaryUser;
                   inherit sys;
+                  inherit hostname;
                 })
                 ./hosts/orbnix/programs.nix
                 home-manager.nixosModules.home-manager
@@ -95,7 +95,7 @@
                     useGlobalPkgs = true;
                     useUserPackages = true;
                     # extraSpecialArgs = { inherit inputs; };
-                    users.${primaryUser}.imports = [ ./hosts/orbnix/hm.nix ];
+                    users.${primaryUser}.imports = [ (import ./hosts/orbnix/hm.nix { inherit primaryUser; }) ];
                   };
                 }
               ];
