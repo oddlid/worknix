@@ -32,6 +32,58 @@
       # add your customizations here
       . /opt/orbstack-guest/etc/profile-late
     '';
+
+    systemPackages = with pkgs; [
+      alejandra
+      bash-language-server
+      coreutils-full
+      curl
+      devenv
+      docker-compose-language-service
+      dockerfile-language-server
+      duf
+      dumbpipe
+      dust
+      ghostscript
+      git
+      helm-ls
+      imagemagick
+      lua-language-server
+      markdown-toc
+      markdownlint-cli
+      markdownlint-cli2
+      marksman
+      mosh
+      nh
+      nil
+      nix-output-monitor
+      nixd
+      nixfmt
+      nixpkgs-fmt
+      nmap
+      # nodejs_24 # Common for a lot of nvim stuff, so might just always have it
+      perlnavigator
+      prettier
+      pyright
+      python3
+      rage # file encryption
+      rclone
+      ruff
+      sendme
+      shellcheck
+      shfmt
+      sqlfluff
+      statix
+      stylua
+      taplo
+      tree-sitter
+      vscode-json-languageserver
+      vscode-langservers-extracted
+      vtsls
+      yaml-language-server
+      yamllint
+      zsh
+    ];
   };
 
   networking = {

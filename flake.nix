@@ -63,7 +63,7 @@
       );
 
       # Bootstrap a config with something like the following:
-      # nix-shell -p git # since git is not included in the default nix config in orbstack
+      # nix --extra-experimental-features 'nix-command flakes' --accept-flake-config develop
       # sudo nixos-rebuild switch --accept-flake-config --flake .#orbnix
 
       nixosConfigurations =
