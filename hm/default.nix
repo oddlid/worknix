@@ -11,6 +11,7 @@ in
 {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
+    ./programs
   ];
 
   home = {
