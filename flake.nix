@@ -88,7 +88,7 @@
                   inherit hostname;
                 })
                 ./hosts/orbnix/programs.nix
-                nixvim.homeModules.nixvim
+                nixvim.nixosModules.nixvim
                 home-manager.nixosModules.home-manager
                 {
                   home-manager = {
@@ -98,6 +98,7 @@
                     extraSpecialArgs = {
                       inherit inputs;
                       inherit primaryUser;
+                      inherit sys;
                     };
                     users.${primaryUser}.imports = [ ./hosts/orbnix/hm.nix ];
                   };

@@ -1,12 +1,18 @@
-# {
-#   primaryUser ? "oddee",
-#   ...
-# }:
-{ pkgs, ... }:
+{
+  pkgs,
+  inputs,
+  primaryUser,
+  sys,
+  ...
+}:
 let
   swe = "sv_SE.UTF-8";
 in
 {
+  imports = [
+    inputs.nixvim.homeManagerModules.nixvim
+  ];
+
   home = {
     stateVersion = "26.11";
 
@@ -46,7 +52,7 @@ in
       _ts = "date -Iseconds | cut -d + -f1 | sed 's/T/_/;s/://g'";
     };
 
-    # username = primaryUser;
+    username = primaryUser;
   };
 
   programs = {
@@ -295,9 +301,9 @@ in
     #   waylandSupport = false;
     # };
 
-    nixvim = {
-      imports = [ ./nixvim.nix ];
-    };
+    # nixvim = {
+    #   imports = [ ./nixvim.nix ];
+    # };
 
     nix-your-shell = {
       enable = true;

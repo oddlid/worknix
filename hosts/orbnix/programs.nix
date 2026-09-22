@@ -18,6 +18,10 @@
     #   withRuby = false;
     #
     # };
+    # nixvim = {
+    #   enable = true;
+    #   imports = [ ./nixvim.nix ];
+    # };
 
     nh = {
       enable = true;
