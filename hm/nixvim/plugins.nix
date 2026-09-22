@@ -1,49 +1,5 @@
-{ pkgs, lib, ... }:
+{ ... }:
 {
-  colorschemes = {
-    solarized-osaka = {
-      enable = true;
-      settings = {
-        styles = {
-          comments = {
-            italic = true;
-          };
-          floats = "transparent";
-          keywords = {
-            italic = false;
-          };
-        };
-        transparent = false;
-      };
-    };
-  };
-
-  dependencies = {
-    chafa = {
-      enable = true;
-    };
-
-    ueberzug = {
-      enable = true;
-    };
-  };
-
-  keymaps = [
-    {
-      key = "<leader>fm";
-      mode = [ "n" ];
-      action = "<cmd>Yazi<CR>";
-    }
-  ];
-
-  lsp = {
-    servers = {
-      gopls = {
-        enable = true;
-      };
-    };
-  };
-
   plugins = {
     diffview = {
       enable = true;
@@ -54,6 +10,10 @@
     };
 
     fzf-lua = {
+      enable = true;
+    };
+
+    helm = {
       enable = true;
     };
 
@@ -151,7 +111,8 @@
 
     };
 
-    helm = {
+    # Should include all mini-* plugins?
+    mini = {
       enable = true;
     };
 
@@ -181,4 +142,5 @@
     };
 
   };
+
 }
