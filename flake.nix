@@ -95,9 +95,11 @@
                     useGlobalPkgs = true;
                     useUserPackages = true;
                     extraSpecialArgs = {
-                      inherit inputs;
-                      inherit primaryUser;
-                      inherit sys;
+                      inherit
+                        inputs
+                        primaryUser
+                        sys
+                        ;
                     };
                     users.${primaryUser}.imports = [ ./hm ];
                   };
