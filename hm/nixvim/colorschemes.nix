@@ -15,7 +15,7 @@
           };
         };
         dim_inactive = true;
-        transparent = false;
+        transparent = true;
       };
     };
   };

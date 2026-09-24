@@ -2,7 +2,7 @@
   pkgs,
   inputs,
   primaryUser,
-  sys,
+  system,
   ...
 }:
 let
@@ -10,7 +10,7 @@ let
 in
 {
   imports = [
-    inputs.nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeModules.nixvim
     ./programs
   ];
 

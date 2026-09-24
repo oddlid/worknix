@@ -75,16 +75,20 @@
           # Test system in Orbstack on macOS
           orbnix =
             let
-              sys = "aarch64-linux";
+              system = "aarch64-linux";
               hostname = "orbnix";
+              # pkgs = import nixpkgs {
+              #   inherit system;
+              #   config.allowUnfree = true;
+              # };
             in
             nixpkgs.lib.nixosSystem {
-              system = sys;
+              inherit system;
               specialArgs = inputs;
               modules = [
                 (import ./hosts/orbnix/system.nix {
                   inherit primaryUser;
-                  inherit sys;
+                  sys = system;
                   inherit hostname;
                 })
                 ./hosts/orbnix/programs.nix
@@ -98,7 +102,7 @@
                       inherit
                         inputs
                         primaryUser
-                        sys
+                        system
                         ;
                     };
                     users.${primaryUser}.imports = [ ./hm ];

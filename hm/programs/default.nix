@@ -1,14 +1,18 @@
 {
   pkgs,
   inputs,
-  sys,
+  system,
   ...
 }:
 let
   neovimconfig = import ../nixvim;
-  nvim = inputs.nixvim.legacyPackages.${sys}.makeNixvimWithModule {
+  nvim = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
     inherit pkgs;
     module = neovimconfig;
+    extraSpecialArgs = {
+      inherit inputs;
+    }
+    // import ../nixvim/lib { inherit pkgs; };
   };
 in
 {
