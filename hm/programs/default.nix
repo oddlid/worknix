@@ -16,7 +16,22 @@ let
   };
 in
 {
-  home.packages = [ nvim ];
+  home.packages = with pkgs; [
+    nvim
+    # Golang tools
+    gci
+    go-minimock
+    go-mockery
+    go_1_26
+    gofumpt
+    golangci-lint
+    golangci-lint-langserver
+    golines
+    gomarkdoc
+    gopls
+    gosec
+    gotools
+  ];
 
   programs = {
     bash = {

@@ -1,7 +1,38 @@
+{ pkgs, ... }:
+let
+  nvim-solarized-lua = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-solarized-lua";
+    src = pkgs.fetchFromGitHub {
+      owner = "ishan9299";
+      repo = "nvim-solarized-lua";
+      rev = "d69a263c97cbc765ca442d682b3283aefd61d4ac";
+      hash = "sha256-0NABkr2d86Uq3OU4lbn2dyjRbwE3+5euqh1CA+MwDtQ=";
+    };
+  };
+in
 {
+  # Works fine to do this, but I can't figure out how to actually enable the theme...
+  # I've tried asking on matrix, but I didn't really understand the sparse instructions.
+  extraPlugins = [ nvim-solarized-lua ];
+
+  # Fails at build time
+  # plugins.nvim-solarized-lua.enable = true;
+  #
+  # Fails at runtime startup
+  # extraConfigLua = ''
+  #   vim.cmd("colorscheme nvim-solarized-lua")
+  # '';
+
   colorschemes = {
+    # Fails at build time
+    # nvim-solarized-lua = {
+    #   enable = true;
+    # };
+
+    # Until I can figure out how to use my preferred theme, I'll use this.
     solarized-osaka = {
       enable = true;
+      # package = nvim-solarized-lua;
       settings = {
         styles = {
           comments = {

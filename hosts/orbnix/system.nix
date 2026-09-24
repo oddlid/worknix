@@ -36,67 +36,67 @@
     # Most of these, i.e. LSPs, should preferably be added to a project flake,
     # but since I don't yet know how things will look, I'm adding it globally.
     systemPackages = with pkgs; [
-      alejandra
-      bash-language-server
+      # alejandra
+      # bash-language-server
       coreutils-full
       curl
       devenv
-      djlint
-      docker-compose-language-service
-      dockerfile-language-server
+      # djlint
+      # docker-compose-language-service
+      # dockerfile-language-server
       duf
       dumbpipe
       dust
-      gci
+      # gci
       ghostscript
       git
-      go-minimock
-      go-mockery
-      go_1_26
-      gofumpt
-      golangci-lint
-      golangci-lint-langserver
-      golines
-      gomarkdoc
-      gopls
-      gosec
-      gotools
-      helm-ls
+      # go-minimock
+      # go-mockery
+      # go_1_26
+      # gofumpt
+      # golangci-lint
+      # golangci-lint-langserver
+      # golines
+      # gomarkdoc
+      # gopls
+      # gosec
+      # gotools
+      # helm-ls
       imagemagick
-      lua-language-server
-      markdown-toc
-      markdownlint-cli
-      markdownlint-cli2
-      marksman
+      # lua-language-server
+      # markdown-toc
+      # markdownlint-cli
+      # markdownlint-cli2
+      # marksman
       mosh
       nh
-      nil
-      nix-output-monitor
-      nixd
-      nixfmt
-      nixpkgs-fmt
+      # nil
+      # nix-output-monitor
+      # nixd
+      # nixfmt
+      # nixpkgs-fmt
       nmap
-      perlnavigator
-      prettier
-      pyright
-      python3
+      # perlnavigator
+      # prettier
+      # pyright
+      # python3
       rage # file encryption
       rclone
-      ruff
+      # ruff
       sendme
-      shellcheck
-      shfmt
-      sqlfluff
-      statix
-      stylua
-      taplo
-      tree-sitter
-      vimPlugins.neotest-golang
-      vscode-json-languageserver
-      vscode-langservers-extracted
-      vtsls
-      yaml-language-server
-      yamllint
+      # shellcheck
+      # shfmt
+      # sqlfluff
+      # statix
+      # stylua
+      # taplo
+      # tree-sitter
+      # vimPlugins.neotest-golang
+      # vscode-json-languageserver
+      # vscode-langservers-extracted
+      # vtsls
+      # yaml-language-server
+      # yamllint
       zsh
     ];
   };

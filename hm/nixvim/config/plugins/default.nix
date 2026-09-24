@@ -42,12 +42,14 @@
     ./lang/cpp.nix
     ./lang/css.nix
     ./lang/docker.nix
+    ./lang/go.nix
     ./lang/html.nix
     ./lang/json.nix
     ./lang/lua.nix
     ./lang/markdown.nix
     ./lang/nix.nix
     ./lang/python.nix
+    ./lang/rust.nix
     ./lang/shell.nix
     ./lang/typescript.nix
     ./lang/yaml.nix
