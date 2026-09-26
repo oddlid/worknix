@@ -5,10 +5,12 @@
     extra-substituters = [
       "https://cache.lix.systems"
       "https://cache.nixos.org/"
+      "https://nvix.cachix.org"
     ];
     extra-trusted-public-keys = [
       "cache.lix.systems:aBnZUw8zA7H35Cz2RyKFVs3H4PlGTLawyY5KRbvJR8o="
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "nvix.cachix.org-1:qVYAfj2oiH0DF3pSs8OfPYI6B0mAZ+h5mMajN+EOL2E="
     ];
     connect-timeout = 5;
   };
@@ -17,6 +19,8 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     nixvim.url = "github:nix-community/nixvim";
+
+    nvix.url = "github:semi710/nvix";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -34,6 +38,7 @@
       self,
       nixpkgs,
       nixvim,
+      nvix,
       home-manager,
       sops-nix,
       ...

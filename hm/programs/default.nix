@@ -1,23 +1,66 @@
 {
   pkgs,
+  lib,
   inputs,
   system,
   ...
 }:
 let
-  neovimconfig = import ../nixvim;
-  nvim = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
-    inherit pkgs;
-    module = neovimconfig;
-    extraSpecialArgs = {
-      inherit inputs;
-    }
-    // import ../nixvim/lib { inherit pkgs; };
-  };
+  # neovimconfig = import ../nixvim;
+  # nvim = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
+  #   inherit pkgs;
+  #   module = neovimconfig;
+  #   extraSpecialArgs = {
+  #     inherit inputs;
+  #   }
+  #   // import ../nixvim/lib { inherit pkgs; };
+  # };
+  nvix = inputs.nvix.packages.${system}.core;
 in
 {
   home.packages = with pkgs; [
-    nvim
+    (nvix.extend {
+      config = {
+        vimAlias = true;
+
+        # The default looks good
+        # colorschemes.kanagawa.settings.theme = lib.mkForce "wave";
+
+        lsp.servers = {
+          gopls = {
+            enable = true;
+            config.settings.gopls.gofumpt = true;
+          };
+          golangci_lint_ls.enable = true;
+        };
+
+        plugins = {
+          chatgpt.enable = lib.mkForce false;
+          copilot-lua.enable = lib.mkForce false;
+          cord.enable = lib.mkForce false;
+          firenvim.enable = lib.mkForce false;
+          leetcode.enable = lib.mkForce false;
+          neoscroll.enable = lib.mkForce false;
+
+          lsp.servers = {
+            gopls.enable = true;
+            golangci_lint_ls.enable = true;
+          };
+
+          snacks = {
+            settings = {
+              animate.enable = lib.mkForce false;
+              indent = {
+                only_scope = true;
+                only_current = true;
+              };
+              picker.layout.preset = lib.mkForce "telescope";
+            };
+          };
+        };
+      };
+    })
+
     # Golang tools
     gci
     go-minimock
