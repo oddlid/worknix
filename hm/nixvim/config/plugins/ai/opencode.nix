@@ -27,7 +27,7 @@ in
 
   plugins = {
     opencode = {
-      enable = true;
+      enable = false;
 
       settings = {
         auto_reload = true;

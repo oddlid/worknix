@@ -1,5 +1,6 @@
 { pkgs, ... }:
 let
+  # This is the same theme I've been using for years with LazyVim
   nvim-solarized-lua = pkgs.vimUtils.buildVimPlugin {
     name = "nvim-solarized-lua";
     src = pkgs.fetchFromGitHub {
@@ -11,28 +12,20 @@ let
   };
 in
 {
-  # Works fine to do this, but I can't figure out how to actually enable the theme...
-  # I've tried asking on matrix, but I didn't really understand the sparse instructions.
   extraPlugins = [ nvim-solarized-lua ];
-
-  # Fails at build time
-  # plugins.nvim-solarized-lua.enable = true;
-  #
-  # Fails at runtime startup
-  # extraConfigLua = ''
-  #   vim.cmd("colorscheme nvim-solarized-lua")
-  # '';
+  # Seems that the name from the plugin above is just this:
+  colorscheme = "solarized";
 
   colorschemes = {
-    # Fails at build time
-    # nvim-solarized-lua = {
-    #   enable = true;
-    # };
+    base16 = {
+      enable = false;
+      # This one has way too much red text in Go, so my eyes get tired.
+      colorscheme = "solarized-dark";
+    };
 
-    # Until I can figure out how to use my preferred theme, I'll use this.
+    # A bit too intense for my taste
     solarized-osaka = {
-      enable = true;
-      # package = nvim-solarized-lua;
+      enable = false;
       settings = {
         styles = {
           comments = {
@@ -49,15 +42,17 @@ in
       };
     };
 
+    # This is sort of nice, but I'm not sure I can get used to it.
+    # Keeping it for playing around with.
     catppuccin = {
-      enable = false;
+      enable = true;
       settings = {
         background = {
           light = "macchiato";
           dark = "mocha";
         };
-        flavour = "macchiato"; # “latte”, “mocha”, “frappe”, “macchiato”, “auto”
-        transparent_background = true;
+        flavour = "mocha"; # “latte”, “mocha”, “frappe”, “macchiato”, “auto”
+        transparent_background = false;
         integrations = {
           cmp = true;
           flash = true;

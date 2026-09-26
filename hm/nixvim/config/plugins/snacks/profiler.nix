@@ -432,7 +432,7 @@ in
   plugins = {
     snacks = {
       settings = {
-        profiler.enabled = true;
+        profiler.enabled = false;
       };
     };
   };

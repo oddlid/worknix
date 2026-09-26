@@ -44,8 +44,8 @@ in
             "dap-view"
             "dap-view-term"
             "neotest-summary"
-            "opencode_terminal"
-            "sidekick_terminal"
+            # "opencode_terminal"
+            # "sidekick_terminal"
             "snacks_terminal"
           ];
         };
@@ -192,9 +192,9 @@ in
                 removed= "${icons.git.LineRemoved}",
                 },
               },
-              {
-                "Snacks.profiler.status()",
-              },
+              ---{
+              ---  "Snacks.profiler.status()",
+              ---},
               ${optionalString (config.plugins.sidekick.enable) ''
                 {
                   function()

@@ -42,9 +42,14 @@
       enable = true;
 
       settings = {
-        indent.enabled = true;
+        indent = {
+          enabled = true;
+          only_scope = true;
+          only_current = true;
+        };
+        animate.enabled = false;
         input.enabled = true;
-        scroll.enabled = true;
+        scroll.enabled = false;
       };
     };
   };

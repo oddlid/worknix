@@ -11,16 +11,32 @@
     # offering improved performance and flexibility.
     luaLoader.enable = true;
 
-    clipboard.providers.wl-copy.enable = true;
+    # clipboard.providers.wl-copy.enable = true;
 
     globals = {
       # Disable useless providers
       loaded_ruby_provider = 0; # Ruby
       loaded_perl_provider = 0; # Perl
       loaded_python_provider = 0; # Python 2
+      # This doesn't work, need to figure out how to use OSC52.
+      # Though it seems to work in tmux in a VM, on my Mac
+      # clipboard = ''
+      #   {
+      #     name = "OSC 52",
+      #     copy = {
+      #       ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+      #       ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+      #     },
+      #     paste = {
+      #       ["+"] = paste,
+      #       ["*"] = paste,
+      #     },
+      #   }
+      # '';
     };
 
     opts = {
+      clipboard = "unnamedplus";
       # Performance & Timing
       updatetime = 100; # CursorHold delay; faster completion and git signs
       lazyredraw = false; # Breaks noice plugin
@@ -59,7 +75,7 @@
       writebackup = false;
       fileencoding = "utf-8";
       modeline = true; # Scan for editor directives like 'vim: set ft=nix:'
-      modelines = 100; # Scan first/last 100 lines for modelines
+      modelines = 10; # Scan first/last 100 lines for modelines
 
       # Indentation & Formatting
       tabstop = 2; # Tab spacing 2 spaces

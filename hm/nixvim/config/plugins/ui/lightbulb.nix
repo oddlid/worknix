@@ -8,7 +8,7 @@
       settings = {
         autocmd = {
           enabled = true;
-          updatetime = 200;
+          updatetime = 100;
         };
 
         line = {

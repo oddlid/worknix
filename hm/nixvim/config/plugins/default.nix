@@ -1,6 +1,7 @@
 {
   imports = [
-    # ./ai/avante.nix
+    ./ai/avante.nix
+    # If I disable this, I get an error at startup about failing to load lualine, so I have it until I can figure out why
     ./ai/copilot-lua.nix
     ./ai/copilot-lsp.nix
     ./ai/opencode.nix
@@ -74,7 +75,7 @@
     ./util/colorizer.nix
     ./util/compiler.nix
     ./util/devdocs.nix
-    ./util/firenvim.nix
+    # ./util/firenvim.nix
     ./util/glance.nix
     ./util/hardtime.nix
     ./util/img-clip.nix

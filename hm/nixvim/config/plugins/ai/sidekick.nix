@@ -7,7 +7,7 @@
   config = {
     plugins = {
       sidekick = {
-        enable = true;
+        enable = false;
 
         lazyLoad.settings.keys = [
           {
