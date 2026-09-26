@@ -18,8 +18,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-    nixvim.url = "github:nix-community/nixvim";
-
     nvix.url = "github:semi710/nvix";
 
     home-manager = {
@@ -37,7 +35,6 @@
     {
       self,
       nixpkgs,
-      nixvim,
       nvix,
       home-manager,
       sops-nix,
@@ -82,10 +79,6 @@
             let
               system = "aarch64-linux";
               hostname = "orbnix";
-              # pkgs = import nixpkgs {
-              #   inherit system;
-              #   config.allowUnfree = true;
-              # };
             in
             nixpkgs.lib.nixosSystem {
               inherit system;

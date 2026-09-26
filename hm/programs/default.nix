@@ -6,15 +6,6 @@
   ...
 }:
 let
-  # neovimconfig = import ../nixvim;
-  # nvim = inputs.nixvim.legacyPackages.${system}.makeNixvimWithModule {
-  #   inherit pkgs;
-  #   module = neovimconfig;
-  #   extraSpecialArgs = {
-  #     inherit inputs;
-  #   }
-  #   // import ../nixvim/lib { inherit pkgs; };
-  # };
   nvix = inputs.nvix.packages.${system}.core;
 in
 {
