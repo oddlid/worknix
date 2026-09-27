@@ -6,6 +6,12 @@ let
   swe = "sv_SE.UTF-8";
 in
 {
+  nixpkgs.overlays = [
+    (final: prev: {
+      mermaid-cli = prev.mermaid-cli.override { chromium = null; };
+    })
+  ];
+
   imports = [
     ./programs
   ];

@@ -84,17 +84,24 @@
               inherit system;
               specialArgs = inputs;
               modules = [
+                # {
+                #   nixpkgs.overlays = [
+                #     (final: prev: {
+                #       mermaid-cli = prev.mermaid-cli.overrideAttrs (oldAttrs: {
+                #         makeWrapperArgs = null;
+                #       });
+                #     })
+                #   ];
+                # }
                 (import ./hosts/orbnix/system.nix {
-                  inherit primaryUser;
-                  sys = system;
-                  inherit hostname;
+                  inherit primaryUser system hostname;
                 })
                 ./hosts/orbnix/programs.nix
                 home-manager.nixosModules.home-manager
                 {
                   home-manager = {
                     backupFileExtension = "bak";
-                    useGlobalPkgs = true;
+                    useGlobalPkgs = false;
                     useUserPackages = true;
                     extraSpecialArgs = {
                       inherit

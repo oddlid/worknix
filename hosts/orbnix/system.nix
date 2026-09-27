@@ -1,6 +1,6 @@
 {
   primaryUser,
-  sys,
+  system,
   hostname,
   ...
 }:
@@ -48,7 +48,7 @@
       dumbpipe
       dust
       # gci
-      ghostscript
+      # ghostscript
       git
       # go-minimock
       # go-mockery
@@ -62,7 +62,7 @@
       # gosec
       # gotools
       # helm-ls
-      imagemagick
+      # imagemagick
       # lua-language-server
       # markdown-toc
       # markdownlint-cli
@@ -157,7 +157,7 @@
   };
 
   nixpkgs = {
-    system = sys;
+    system = system;
     config.allowUnfree = true;
     overlays = [
       (final: prev: {
