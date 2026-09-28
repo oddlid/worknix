@@ -84,15 +84,17 @@
               inherit system;
               specialArgs = inputs;
               modules = [
-                # {
-                #   nixpkgs.overlays = [
-                #     (final: prev: {
-                #       mermaid-cli = prev.mermaid-cli.overrideAttrs (oldAttrs: {
-                #         makeWrapperArgs = null;
-                #       });
-                #     })
-                #   ];
-                # }
+                {
+                  nixpkgs.overlays = [
+                    (final: prev: {
+                      mermaid-cli = prev.mermaid-cli.overrideAttrs (oldAttrs: {
+                        # In the original package, this param references chromium.
+                        # Setting it to null makes the dependency on chromium disappear.
+                        makeWrapperArgs = null;
+                      });
+                    })
+                  ];
+                }
                 (import ./hosts/orbnix/system.nix {
                   inherit primaryUser system hostname;
                 })
@@ -101,7 +103,7 @@
                 {
                   home-manager = {
                     backupFileExtension = "bak";
-                    useGlobalPkgs = false;
+                    useGlobalPkgs = true;
                     useUserPackages = true;
                     extraSpecialArgs = {
                       inherit

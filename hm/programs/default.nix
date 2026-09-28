@@ -9,17 +9,15 @@ let
   nvix = inputs.nvix.packages.${system}.core;
 in
 {
-  # I can use disabledModules at this level, but I can't see how I can disable just that one entry in
-  # extraPackages this way.
-  # disabledModules = [ "pkgs/by-name/me/mermaid-cli/package.nix" ];
-
   home.packages = with pkgs; [
     (nvix.extend {
       config = {
         vimAlias = true;
+        nvix.transparent = true;
 
-        # The default looks good
-        # colorschemes.kanagawa.settings.theme = lib.mkForce "wave";
+        # This tip I got on matrix works in tandem with the overlay for this system, to avoid mermaid-cli pulling in
+        # chromium, which again pulls in shitloads of deps I have no use for.
+        _module.args.pkgs = lib.mkForce pkgs;
 
         lsp.servers = {
           gopls = {
@@ -38,6 +36,8 @@ in
           neoscroll.enable = lib.mkForce false;
           kulala.enable = lib.mkForce false;
           typst-preview.enable = lib.mkForce false;
+
+          gitsigns.settings.current_line_blame = lib.mkForce false;
 
           lsp.servers = {
             gopls.enable = true;
@@ -58,17 +58,8 @@ in
           };
         };
 
-        # This works, but removes everything
-        # extraPackages = lib.mkForce [ ];
-        # extraPackages = lib.lists.remove pkgs.mermaid-cli extraPackages;
-        # This just gives me an error about the option disabledModules not existing
-        # disabledModules = [ pkgs.mermaid-cli ];
       };
     })
-
-    # Tip from Quad:
-    # i mean, you can easily force the whole list of plugins to be your own set, its only just removing a single one thats an issue.
-    # If you want to not import that module, i wonder if you can disabledModules = [ "${inputs.nvix}/plugins/<category>/<name>.nix" ]; inside the config block
 
     # Golang tools
     gci
