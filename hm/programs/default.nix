@@ -74,6 +74,16 @@ in
     gopls
     gosec
     gotools
+
+    # Cloud tools
+    cloudlens
+    helm
+    helm-ls
+    k9s
+    kubectl
+    tenv
+    terraform
+    terraform-ls
   ];
 
   programs = {
