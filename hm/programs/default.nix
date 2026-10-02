@@ -78,8 +78,7 @@ in {
     helm-ls
     k9s
     kubectl
-    tenv
-    terraform
+    tenv # contains terraform, and several more tools
     terraform-ls
 
     # Formatters, LSPs and misc stuff
