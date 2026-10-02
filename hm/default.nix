@@ -49,6 +49,17 @@ in
       _ts = "date -Iseconds | cut -d + -f1 | sed 's/T/_/;s/://g'";
     };
 
+    file = {
+      ".config/scooter/config.toml".text = ''
+        [preview]
+        syntax_highlighting_theme = "Solarized (dark)"
+
+        [editor_open]
+        command = 'tmux send-keys -t "$TMUX_PANE" ":open \"%file:%line\"" Enter'
+        exit = true
+      '';
+    };
+
     username = primaryUser;
   };
 

@@ -65,7 +65,7 @@ in
     gci
     go-minimock
     go-mockery
-    go_1_26
+    go_1_27
     gofumpt
     golangci-lint
     golangci-lint-langserver
@@ -84,6 +84,46 @@ in
     tenv
     terraform
     terraform-ls
+
+    # Formatters, LSPs and misc stuff
+    alejandra
+    ansible-language-server
+    ansible-lint
+    awk-language-server
+    bash-language-server
+    docker-compose-language-service
+    dockerfile-language-server
+    fzf-git-sh
+    jsonnet-language-server
+    jq-lsp
+    lua-language-server
+    markdown-toc
+    markdownlint-cli
+    markdownlint-cli2
+    marksman
+    nil
+    nixd
+    nixfmt
+    nixpkgs-fmt
+    prettier
+    pyright
+    ruff
+    scooter
+    shellcheck
+    shfmt
+    sqlfluff
+    sqls
+    stylua
+    taplo
+    tmuxPlugins.tmux-fzf
+    vscode-langservers-extracted
+    vtsls
+    yaml-language-server
+    yamllint
+    zsh-forgit
+    zsh-fzf-history-search
+    zsh-fzf-tab
+
   ];
 
   programs = {
@@ -218,9 +258,14 @@ in
 
     helix = {
       enable = true;
+      # package = pkgs.evil-helix;
       settings = {
         theme = "solarized_dark";
         editor = {
+          bufferline = "multiple";
+          mouse = true;
+          scroll-lines = 3;
+          end-of-line-diagnostics = "hint";
           line-number = "relative";
           atomic-save = false;
           trim-final-newlines = true;
@@ -234,10 +279,60 @@ in
           indent-guides = {
             render = true;
           };
+          file-picker = {
+            hidden = true; # whether to ignore hidden files
+          };
+          inline-diagnostics = {
+            cursor-line = "warning";
+          };
+        };
+        keys = {
+          normal = {
+            # Tip from: https://helix-editor.vercel.app/help/recipes
+            "C-g" = [
+              ":write-all"
+              ":new"
+              ":insert-output lazygit"
+              ":buffer-close!"
+              ":redraw"
+              ":reload-all"
+            ];
+            tab = "move_parent_node_end";
+            "S-tab" = "move_parent_node_start";
+          };
+          insert = {
+            "S-tab" = "move_parent_node_start";
+          };
+          select = {
+            tab = "extend_parent_node_end";
+            "S-tab" = "extend_parent_node_start";
+            # Have a look at https://github.com/thomasschafer/scooter#editor-configuration
+            # for project-wide search and replace.
+            ret = {
+              # I had to adjust this slightly from the example, to make sccoter search from the current directory.
+              # # I had to adjust this slightly from the example, to make sccoter search from the current directory.
+              s = ":sh tmux -2 -N popup -xC -yC -w90%% -h90%% -E scooter -s %{selection} %sh{pwd}";
+            };
+          };
         };
       };
       languages = {
         language = [
+          {
+            name = "go";
+            file-types = [
+              "go"
+              "gomod"
+            ];
+            auto-format = true;
+            indent = {
+              tab-width = 2;
+              unit = " ";
+            };
+            formatter = {
+              command = "gofumpt";
+            };
+          }
           {
             name = "rust";
             file-types = [ "rs" ];
@@ -253,9 +348,14 @@ in
           }
           {
             name = "nix";
+            auto-format = true;
             formatter = {
               command = "alejandra";
             };
+            language-servers = [
+              "nil_ls"
+              "statix"
+            ];
           }
           {
             name = "python";
