@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   programs = {
     less = {
       enable = true;
@@ -7,21 +6,6 @@
         LESS = "FRi"; # --quit-if-one-screen --RAW-CONTROL-CHARS --ignore-case
       };
     };
-
-    # neovim = {
-    #   enable = true;
-    #   defaultEditor = true;
-    #   viAlias = true;
-    #   vimAlias = true;
-    #   withNodeJs = true;
-    #   withPython3 = true;
-    #   withRuby = false;
-    #
-    # };
-    # nixvim = {
-    #   enable = true;
-    #   imports = [ ./nixvim.nix ];
-    # };
 
     nh = {
       enable = true;
@@ -41,6 +25,5 @@
     zsh = {
       enable = true;
     };
-
   };
 }

@@ -4,11 +4,9 @@
   inputs,
   system,
   ...
-}:
-let
+}: let
   nvix = inputs.nvix.packages.${system}.core;
-in
-{
+in {
   home.packages = with pkgs; [
     (nvix.extend {
       config = {
@@ -57,7 +55,6 @@ in
             };
           };
         };
-
       };
     })
 
@@ -123,7 +120,6 @@ in
     zsh-forgit
     zsh-fzf-history-search
     zsh-fzf-tab
-
   ];
 
   programs = {
@@ -217,7 +213,7 @@ in
     gh = {
       enable = true;
       settings = {
-        aliases = { };
+        # aliases = {};
         editor = "nvim";
       };
     };
@@ -262,7 +258,7 @@ in
       settings = {
         theme = "solarized_dark";
         editor = {
-          bufferline = "multiple";
+          # bufferline = "multiple";
           mouse = true;
           scroll-lines = 3;
           end-of-line-diagnostics = "hint";
@@ -335,7 +331,7 @@ in
           }
           {
             name = "rust";
-            file-types = [ "rs" ];
+            file-types = ["rs"];
             auto-format = true;
             formatter = {
               command = "rustfmt";
@@ -344,7 +340,7 @@ in
               "Cargo.toml"
               "Cargo.lock"
             ];
-            language-servers = [ "rust-analyzer" ];
+            language-servers = ["rust-analyzer"];
           }
           {
             name = "nix";
@@ -360,12 +356,12 @@ in
           {
             name = "python";
             auto-format = true;
-            language-servers = [ "ruff" ];
+            language-servers = ["ruff"];
           }
           {
             name = "toml";
-            roots = [ "." ];
-            language-servers = [ "taplo" ];
+            roots = ["."];
+            language-servers = ["taplo"];
           }
         ];
         language-server = {
@@ -382,7 +378,7 @@ in
           };
           ruff = {
             command = "ruff";
-            args = [ "server" ];
+            args = ["server"];
           };
         };
       };
@@ -390,7 +386,7 @@ in
 
     htop = {
       enable = true;
-      settings = { };
+      # settings = {};
     };
 
     jq = {
@@ -550,7 +546,7 @@ in
       initContent = ''
         source ${pkgs.fzf-git-sh}/share/fzf-git-sh/fzf-git.sh
       '';
-      localVariables = { };
+      # localVariables = {};
       oh-my-zsh = {
         enable = true;
         extraConfig = ''
@@ -584,8 +580,8 @@ in
         highlighters = [
           "brackets"
         ];
-        patterns = { };
-        styles = { };
+        # patterns = {};
+        # styles = {};
       };
       siteFunctions = {
         list_nix_pkg = ''
@@ -593,6 +589,5 @@ in
         '';
       };
     };
-
   };
 }
