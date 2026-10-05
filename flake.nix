@@ -16,9 +16,12 @@
   };
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
 
-    nvix.url = "github:semi710/nvix";
+    nvix = {
+      url = "github:semi710/nvix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -31,93 +34,82 @@
     };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      nvix,
-      home-manager,
-      sops-nix,
-      ...
-    }@inputs:
-    let
-      allSystems = nixpkgs.lib.systems.flakeExposed;
-      forSystems = systems: f: nixpkgs.lib.genAttrs systems (system: f system);
+  outputs = {
+    self,
+    nixpkgs,
+    nvix,
+    home-manager,
+    sops-nix,
+    ...
+  } @ inputs: let
+    allSystems = nixpkgs.lib.systems.flakeExposed;
+    forSystems = systems: f: nixpkgs.lib.genAttrs systems (system: f system);
+  in {
+    devShells = forSystems allSystems (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        default = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
+            git
+            nil # lsp language server for nix
+            nix-output-monitor
+            nixpkgs-fmt
+            sops
+          ];
+        };
+      }
+    );
 
-    in
-    {
-      devShells = forSystems allSystems (
-        system:
-        let
-          pkgs = nixpkgs.legacyPackages.${system};
-        in
-        {
-          default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [
-              git
-              nil # lsp language server for nix
-              nix-output-monitor
-              nixpkgs-fmt
-              sops
-            ];
-          };
-        }
-      );
+    # Bootstrap a config with something like the following:
+    # nix --extra-experimental-features 'nix-command flakes' --accept-flake-config develop
+    # sudo nixos-rebuild switch --accept-flake-config --flake .#orbnix
 
-      # Bootstrap a config with something like the following:
-      # nix --extra-experimental-features 'nix-command flakes' --accept-flake-config develop
-      # sudo nixos-rebuild switch --accept-flake-config --flake .#orbnix
-
-      nixosConfigurations =
-        let
-          primaryUser = "oddee";
-        in
-        {
-
-          # Test system in Orbstack on macOS
-          orbnix =
-            let
-              system = "aarch64-linux";
-              hostname = "orbnix";
-            in
-            nixpkgs.lib.nixosSystem {
-              inherit system;
-              specialArgs = inputs;
-              modules = [
-                {
-                  nixpkgs.overlays = [
-                    (final: prev: {
-                      mermaid-cli = prev.mermaid-cli.overrideAttrs (oldAttrs: {
-                        # In the original package, this param references chromium.
-                        # Setting it to null makes the dependency on chromium disappear.
-                        makeWrapperArgs = null;
-                      });
-                    })
-                  ];
-                }
-                (import ./hosts/orbnix/system.nix {
-                  inherit primaryUser system hostname;
+    nixosConfigurations = let
+      primaryUser = "oddee";
+    in {
+      # Test system in Orbstack on macOS
+      orbnix = let
+        system = "aarch64-linux";
+        hostname = "orbnix";
+      in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = inputs;
+          modules = [
+            {
+              nixpkgs.overlays = [
+                (final: prev: {
+                  mermaid-cli = prev.mermaid-cli.overrideAttrs (oldAttrs: {
+                    # In the original package, this param references chromium.
+                    # Setting it to null makes the dependency on chromium disappear.
+                    makeWrapperArgs = null;
+                  });
                 })
-                ./hosts/orbnix/programs.nix
-                home-manager.nixosModules.home-manager
-                {
-                  home-manager = {
-                    backupFileExtension = "bak";
-                    useGlobalPkgs = true;
-                    useUserPackages = true;
-                    extraSpecialArgs = {
-                      inherit
-                        inputs
-                        primaryUser
-                        system
-                        ;
-                    };
-                    users.${primaryUser}.imports = [ ./hm ];
-                  };
-                }
               ];
-            };
-
+            }
+            (import ./hosts/orbnix/system.nix {
+              inherit primaryUser system hostname;
+            })
+            ./hosts/orbnix/programs.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                backupFileExtension = "bak";
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    primaryUser
+                    system
+                    ;
+                };
+                users.${primaryUser}.imports = [./hm];
+              };
+            }
+          ];
         };
     };
+  };
 }
