@@ -67,6 +67,18 @@
 
     nixosConfigurations = let
       primaryUser = "oddee";
+      eguser = "user";
+      mermaid-overlay = {
+        nixpkgs.overlays = [
+          (final: prev: {
+            mermaid-cli = prev.mermaid-cli.overrideAttrs (oldAttrs: {
+              # In the original package, this param references chromium.
+              # Setting it to null makes the dependency on chromium disappear.
+              makeWrapperArgs = null;
+            });
+          })
+        ];
+      };
     in {
       # Test system in Orbstack on macOS
       orbnix = let
@@ -77,17 +89,7 @@
           inherit system;
           specialArgs = inputs;
           modules = [
-            {
-              nixpkgs.overlays = [
-                (final: prev: {
-                  mermaid-cli = prev.mermaid-cli.overrideAttrs (oldAttrs: {
-                    # In the original package, this param references chromium.
-                    # Setting it to null makes the dependency on chromium disappear.
-                    makeWrapperArgs = null;
-                  });
-                })
-              ];
-            }
+            mermaid-overlay
             (import ./hosts/orbnix/system.nix {
               inherit primaryUser system hostname;
             })
@@ -106,6 +108,36 @@
                     ;
                 };
                 users.${primaryUser}.imports = [./hm];
+              };
+            }
+          ];
+        };
+
+      egvm = let
+        system = "x86_64-linux";
+      in
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = inputs;
+          modules = [
+            mermaid-overlay
+            (import ./hosts/egvm/system.nix {
+              inherit system;
+            })
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                backupFileExtension = "bak";
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = {
+                  inherit
+                    inputs
+                    system
+                    ;
+                  primaryUser = eguser;
+                };
+                users.${eguser}.imports = [./hm];
               };
             }
           ];

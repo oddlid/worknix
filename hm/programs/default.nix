@@ -236,8 +236,8 @@ in {
           rebase = true;
         };
         user = {
-          name = "git@oddware.net"; # TODO: change to match workplace
-          email = "Odd E. Ebbesen";
+          name = "Odd Ebbesen";
+          email = "odd.ebbesen.ext@ericsson.com";
         };
       };
       signing = {
@@ -266,7 +266,7 @@ in {
           atomic-save = false;
           trim-final-newlines = true;
           trim-trailing-whitespace = true;
-          clipboard-provider = "termcode";
+          clipboard-provider = "termcode"; # TODO: find out if this is the best option
           cursor-shape = {
             normal = "block";
             insert = "bar";
@@ -285,6 +285,8 @@ in {
         keys = {
           normal = {
             # Tip from: https://helix-editor.vercel.app/help/recipes
+            # NOTE: Using this has some janky side effects, such as the alternate screen
+            # remaining in the shell after exiting helix. Also seems to affect the mouse.
             "C-g" = [
               ":write-all"
               ":new"
