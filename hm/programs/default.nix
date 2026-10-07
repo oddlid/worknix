@@ -74,6 +74,7 @@ in {
 
     # Cloud tools
     cloudlens
+    google-cloud-sdk
     helm
     helm-ls
     k9s
