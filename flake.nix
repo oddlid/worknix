@@ -52,8 +52,10 @@
         default = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
             git
+            nh
             nil # lsp language server for nix
             nix-output-monitor
+            nixos-rebuild-ng
             nixpkgs-fmt
             sops
           ];
