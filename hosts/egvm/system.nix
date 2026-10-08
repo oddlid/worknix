@@ -111,7 +111,7 @@
         #   "wheel"
         # ];
 
-        isSystemUser = false;
+        isNormalUser = true;
         group = "users";
         createHome = false;
         home = "/home/${primaryUser}";
