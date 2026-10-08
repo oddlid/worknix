@@ -6,9 +6,14 @@
   config,
   pkgs,
   lib,
-  # modulesPath,
+  modulesPath,
   ...
 }: {
+  imports = [
+    # Include the default lxd configuration.
+    "${modulesPath}/virtualisation/lxc-container.nix"
+  ];
+
   environment = {
     systemPackages = with pkgs; [
       coreutils-full
