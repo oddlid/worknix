@@ -125,6 +125,7 @@
             mermaid-overlay
             (import ./hosts/egvm/system.nix {
               inherit system;
+              primaryUser = eguser;
             })
             home-manager.nixosModules.home-manager
             {

@@ -1,4 +1,8 @@
-{system, ...}: {
+{
+  system,
+  primaryUser,
+  ...
+}: {
   config,
   pkgs,
   lib,
