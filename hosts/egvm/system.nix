@@ -90,4 +90,28 @@
   time = {
     timeZone = "Europe/Stockholm";
   };
+
+  users = {
+    mutableUsers = true;
+    groups = {
+      user = {
+        gid = 1000;
+      };
+    };
+    users = {
+      ${primaryUser} = {
+        uid = 1000;
+        # extraGroups = [
+        #   "wheel"
+        # ];
+
+        isSystemUser = false;
+        group = "users";
+        createHome = false;
+        home = "/home/${primaryUser}";
+        # homeMode = "700";
+        shell = pkgs.zsh;
+      };
+    };
+  };
 }
